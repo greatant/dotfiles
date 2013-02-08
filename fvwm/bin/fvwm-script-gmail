@@ -1,0 +1,12 @@
+#!/bin/bash
+## Quickly checks if I have new gmail
+
+cd $XDG_CONFIG_HOME
+ 
+atomlines=`wget -T 3 -t 1 -q --secure-protocol=TLSv1 \
+ --no-check-certificate \
+ --user=rblakemorrison@gmail.com --password=a3766003 \
+ https://mail.google.com/mail/feed/atom -O - \
+ | wc -l`
+ 
+[ $atomlines -gt "8" ] && echo -e "1" || echo -e "0"

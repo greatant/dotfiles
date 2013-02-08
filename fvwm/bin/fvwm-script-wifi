@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "$(grep wlan0 /proc/net/wireless | awk '{printf("%d", $3)}')"

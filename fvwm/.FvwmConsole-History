@@ -1,0 +1,11 @@
+Piperead 'if [ $(uname -n) = Hutz ]; then echo *ButtTaskbar: (1018x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000 -30000"); fi
+'
+'
+Piperead 'if [ $(uname -n) = Hutz ]; then echo *ButtTaskbar: (1018x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000 -30000"); fi'
+Piperead 'if [ $(uname -n) = Hutz ]; then echo *ButtTaskbar: \(1018x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000 -30000"\); fi'
+*ButtTaskbar: (1018x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000-30000")
+FvwmIconMan IconTaskbar -g -30000-30000
+FvwmIconMan IconTaskbar
+Piperead 'if [ $(uname -n) = Willie ]; then echo *ButtTaskbar: \(1656x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); else echo *ButtTaskbar: \(1018x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); fi'
+Piperead 'if [ $(uname -n) = Willie ]; then echo *ButtTaskbar: \(1656x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); else echo *ButtTaskbar: \(1018x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); fi'
+Piperead 'if [ $(uname -n) = Willie ]; then echo *ButtTaskbar: \(1656x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); else echo *ButtTaskbar: \(1018x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); fi'

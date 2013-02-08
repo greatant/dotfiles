@@ -1,0 +1,154 @@
+#####
+# WindowOps (Right-click Titlebar)
+###########
+DestroyMenu WindowOps
+AddToMenu WindowOps "WindowOps" Title
++ DynamicPopupAction Function MakeWinOpsMenu
+
+DestroyFunc MakeWinOpsMenu
+AddToFunc MakeWinOpsMenu
++ I DestroyMenu recreate WindowOps
++ I ThisWindow (!Iconic) AddToMenu WindowOps "Shade" WindowShade
++ I AddToMenu WindowOps "Top Layer" OnTopWin
++ I AddToMenu WindowOps "Sticky" Stick
++ I ThisWindow (!Iconic) AddToMenu WindowOps "Minimize" Iconify
++ I ThisWindow (Iconic) AddToMenu WindowOps "Restore" Iconify
++ I ThisWindow (!Iconic) AddToMenu WindowOps "Maximize" FuncMaxWin
++ I AddToMenu WindowOps "Fullscreen" FuncFullWin
++ I AddToMenu WindowOps "" Nop
++ I AddToMenu WindowOps "Close" Close
+
+
+DestroyMenu OperaWindowOps
+AddToMenu OperaWindowOps "WindowOps" Title
++ DynamicPopupAction Function MakeOperaWinOpsMenu
+
+DestroyFunc MakeOperaWinOpsMenu
+AddToFunc MakeOperaWinOpsMenu
++ I DestroyMenu recreate OperaWindowOps
++ I ThisWindow (!Iconic) AddToMenu OperaWindowOps "Shade" WindowShade
++ I AddToMenu OperaWindowOps "Top Layer" OnTopWin
++ I AddToMenu OperaWindowOps "Sticky" Stick
++ I ThisWindow (!Iconic) AddToMenu OperaWindowOps "Minimize" Iconify
++ I ThisWindow (Iconic) AddToMenu OperaWindowOps "Restore" Iconify
++ I ThisWindow (!Iconic) AddToMenu OperaWindowOps "Maximize" FuncMaxWin
++ I AddToMenu OperaWindowOps "Fullscreen" FuncFullWin
++ I AddToMenu OperaWindowOps "" Nop
++ I AddToMenu OperaWindowOps "New Tab" Exec exec opera -newpage
++ I AddToMenu OperaWindowOps "New Window" Exec exec opera -newwindow
++ I AddToMenu OperaWindowOps "Open..." Exec exec opera -remote "openFile()"
++ I AddToMenu OperaWindowOps "" Nop
++ I AddToMenu OperaWindowOps "Close" Close
+
+#####
+# Facebook Menu
+###########
+DestroyMenu FBMenu
+AddToMenu FBMenu
++ DynamicPopupAction Function MakeFBMenu
+
+DestroyFunc MakeFBMenu
+AddToFunc MakeFBMenu
++ I DestroyMenu recreate FBMenu
++ I AddToMenu FBMenu "FBMenu" Title
++ I AddToMenu FBMenu "Update Status%fb_status.png%" Exec 
++ I PipeRead 'exec $[fvwm_script]/fbwrap.sh'
+
+#####
+# Time Menu
+##########
+DestroyMenu TimeMenu
+AddToMenu TimeMenu
++ "Stopwatch" Exec
++ "Countdown" Exec
+
+#####
+# SimpleTasks Menu
+###########
+DestroyMenu TaskMenu
+AddTomenu TaskMenu
++ DynamicPopupAction Function MakeTaskMenu
+
+DestroyFunc MakeTaskMenu
+AddToFunc  MakeTaskMenu
++ I DestroyMenu recreate TaskMenu
++ I Piperead 'exec $[fvwm_script]/tasklist.py'
+
+#####
+# Radio Menu
+###########
+DestroyMenu RadioMenu
+AddToMenu RadioMenu
++ DynamicPopupAction Function MakeRadioMenu
+
+DestroyFunc MakeRadioMenu
+AddToFunc MakeRadioMenu
++ I DestroyMenu recreate RadioMenu
+#+ I Piperead 'for radio in /storage/Music/Radio/*	\
+#		do					\
+#		echo "AddToMenu RadioMenu '${radio##*/}' Exec mplayer -playlist '$radio'"	\
+#		done'
++ I Piperead 'exec $[fvwm_script]/radio.sh'
+
+
+
+#####
+# Music Menu   $[fvwm_script]/fvwm-menu-dirMOD
+###########
+DestroyFunc FuncFvwmMenuDirectory
+AddToFunc FuncFvwmMenuDirectory
++ I PipeRead '$[fvwm_script]/fvwm-menu-directoryMOD --title "%d" --dir "$0" 	\
+		--command-file "exec xmms \\"%f\\"" 		\
+		--command-title "exec xmms \\"%d\\"" 		\
+		--icon-file "audio-file.png"			\
+		--exclude ".jpg"'
+
+DestroyMenu MusicMenu
+AddToMenu MusicMenu "Music" Title
++ MissingSubmenuFunction FuncFvwmMenuDirectory 
++ "Artists A-B" Popup $[fvwm_music_path]|[0123456789AB]
++ "Artists C-D" Popup $[fvwm_music_path]|[CD]
++ "Artists E-F" Popup $[fvwm_music_path]|[EF]
++ "Artists G-H" Popup $[fvwm_music_path]|[GH]
++ "Artists I-K" Popup $[fvwm_music_path]|[IJK]
++ "Artists L-M" Popup $[fvwm_music_path]|[LM]
++ "Artists N-O" Popup $[fvwm_music_path]|[NO]
++ "Artists P-R"	Popup $[fvwm_music_path]|[PQR]
++ "Artists S"	Popup $[fvwm_music_path]|[S]
++ "Artists T"	Popup $[fvwm_music_path]|[T]
++ "Artists U-Z" Popup $[fvwm_music_path]|[UVWXYZ]
++ "Various Artists" Popup $[fvwm_music_path]/VA
++ "Soudtracks"	Popup $[fvwm_music_path]/OST
+
+
+DestroyMenu CSServerMenu
+AddToMenu CSServerMenu
++ DynamicPopupAction Function MakeCSServerMenu
+
+DestroyFunc MakeCSServerMenu
+AddToFunc MakeCSServerMenu
++ I DestroyMenu recreate CSServerMenu
++ I AddToMenu CSServerMenu MissingSubmenuFunction MakeCSServerSubMenu
++ I AddToMenu CSServerMenu "Servers" Title
++ I PipeRead 'qstat -nh -default hla2s -f $[fvwm_script]/serverlist | awk \'{print \"AddToMenu CSServerMenu \\"\"$$$8\"\	\"$$$3\"\	\"$$$2\"\\" Popup \"$$$1}\''
+#+ I PipeRead '$[fvwm_script]/qstat2.sh'
+
+DestroyFunc MakeCSServerSubMenu
+AddToFunc MakeCSServerSubMenu
++ I DestroyMenu recreate $0
++ I AddToMenu "$0" "$0" Title
++ I Piperead 'qstat -P -nh -tsw -sort F -default hla2s $$0 | awk \'/frags/ {print \"AddToMenu $$0 \\"\"$$$4\"\	\"$$$1\"\\" Nop\"}\''
+#+ I Piperead '$[fvwm_script]/qstat2.sh'
+
+DestroyMenu MenuTools
+AddToMenu MenuTools
++ MissingSubmenuFunction FuncFvwmMenuDirectory
++ "%edit-find.png%Magnify" Exec exec xmag -mag 2
++ "Window Info" Exec FvwmCommand FvwmIdent
++ "%input-keyboard.png%Virtual Keyboard" Exec exec xvkbd
++ "%input-keyboard.png%Font Viewer" Exec exec font-manager
++ "Music dir" Popup "/storage/Music"
+
+DestroyFunc FuncMenuMultimedia
+AddToFunc FuncMenuMultimedia
++ I PipeRead "fvwm-menu-directory --dir '$0' --icon-file 'audio-file.png' --icon-title '%N/folder.jpg' --func-name 'FuncMenuMultimedia'"
