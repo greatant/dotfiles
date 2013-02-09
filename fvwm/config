@@ -314,7 +314,7 @@ Style * ClickToFocus, ClickToFocusRaises, !Icon, ParentalRelativity,		\
 
 
 Style opera		MiniIcon icon-opera.svg:16x16, EWMHMiniIconOverride
-Style Spacefm		MiniIcon icon-filemanager.svg:16x16
+Style Qtfm		MiniIcon icon-filemanager.svg:16x16
 Style Xpdf		MiniIcon application-x-pdf.png
 Style XCalc		MiniIcon accessories-calculator.png
 Style NEdit		MiniIcon accessories-text-editor.png, ResizeHintOverride
