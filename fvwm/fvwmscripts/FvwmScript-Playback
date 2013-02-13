@@ -39,11 +39,16 @@ Property
     Flags Left
     Main
         Case message of
-        SingleClic:
+        PauseBump:
             Begin
-		If $stopped == 1 Then
-		    Do {Menu FvwmMenuMPD Rectangle +$left+$top 0 -100m}
+#		If $stopped == 1 Then
+#		    Do {Menu FvwmMenuMPD Rectangle +$left+$top 0 -100m}
 		If $stopped == 3 Then
                     Do {exec mpc toggle}
             End
+	MenuBump:
+	    Begin
+		Do {Menu FvwmMenuMPD}
+	    End
+
     End

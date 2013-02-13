@@ -409,9 +409,9 @@ Piperead 'if [ $HOSTNAME = Willie ]; then echo *ButtTaskbar: \\(1654x1, Left, Sw
 *ButtTaskbar:	(10x1)
 *ButtTaskbar:	(40x1, Swallow "stalonetray" "Exec stalonetray -t -c $XDG_CONFIG_HOME/stalonetrayrc")
 *ButtTaskbar:	(20x1, Center, Icon drive-removable-media-3.svg:16x16, Action (Mouse 1) "Menu FvwmMenuUdisks Rectangle +$left+$top 0 -100m")
-*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Playback" "Module FvwmScript FvwmScript-Playback")
+*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Playback" "Module FvwmScript FvwmScript-Playback", Action(Mouse 1) 'SendToModule FvwmScript-Playback SendString 1 1 PauseBump', Action(Mouse 3) 'SendToModule FvwmScript-Playback SendString 1 1 MenuBump')
 *ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Gmail" "Module FvwmScript FvwmScript-Gmail")
-#*ButtTaskbar:	(20x1, Center, Action (Mouse 4) 'SendToModule volume SendString 1 1 bump', Action (Mouse 5) 'SendToModule volume SendString 1 2 bump', Swallow "volume" "FvwmScript volume")
+Action (Mouse 4) 'SendToModule volume SendString 1 1 bump', Action (Mouse 5) 'SendToModule volume SendString 1 2 bump'
 #*ButtTaskbar:	(18x1, Center, Icon bluetooth_on.svg:20x20, Action (Mouse 1) "Menu FvwmMenuBluetooth Rectangle +$left+$top 0 -100m")
 #*ButtTaskbar:	(20x1, Center, Icon facebook.png, Action (Mouse 1) "Menu FBMenu Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(22x1, Center, Padding 0 3, Swallow "FvwmScript-Wifi" "Module FvwmScript FvwmScript-Wifi")
