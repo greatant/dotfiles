@@ -1,0 +1,73 @@
+WindowTitle {FvwmScript-Battery}
+WindowSize 16 16
+WindowPosition 10 10
+Colorset 10
+
+Init
+Begin
+
+    Set $prestatus = (GetOutput {cat /sys/class/power_supply/BAT0/status} 1 -1)
+    Set $level = (GetOutput {cat /sys/class/power_supply/BAT0/capacity | head -c -2} 1 -1)
+
+    If $prestatus == {Unknown} Then
+	Begin
+            Set $status = {charging}
+	End
+    If $prestatus == {Charging} Then
+	Begin
+	    Set $status = {charging}
+	End
+    If $prestatus == {Discharging} Then
+	Begin
+	    Set $status = {discharging}
+	End
+
+    Set $icon = {battery/battery-} $status {-} $level {0.svg:16x16}
+
+    ChangeIcon 1 $icon
+End
+
+
+PeriodicTasks
+Begin
+    If (RemainderOfDiv (GetTime) 180)==0 Then
+
+    Begin
+
+    Set $prestatus = (GetOutput {cat /sys/class/power_supply/BAT0/status} 1 -1)
+    Set $level = (GetOutput {cat /sys/class/power_supply/BAT0/capacity | head -c -2} 1 -1)
+
+    If $prestatus == {Unknown} Then
+	Begin
+            Set $status = {charging}
+	End
+    If $prestatus == {Charging} Then
+	Begin
+	    Set $status = {charging}
+	End
+    If $prestatus == {Discharging} Then
+	Begin
+	    Set $status = {discharging}
+	End
+
+    Set $icon = {battery/battery-} $status {-} $level {0.svg:16x16}
+
+    ChangeIcon 1 $icon
+
+    End
+End
+
+
+Widget 1
+Property
+    Size	16 16
+    Position	0 0
+    Type	ItemDraw
+    Flags Left
+    Main
+        Case message of
+        SingleClic:
+            Begin
+                
+            End
+    End

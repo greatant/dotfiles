@@ -16,6 +16,4 @@ fi
 
 systemd --user &
 
-#exec fvwm-root -r $fvwm_wall/quite.png &
-
 exec fvwm

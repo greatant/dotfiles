@@ -13,7 +13,7 @@ PS1='[\u@\h \W]\$ '
 
 PATH="${PATH}:$HOME/bin"
 
-export EDITOR="nano"
+export EDITOR="nano -w"
 export OPERA_PERSONALDIR="$XDG_CONFIG_HOME/opera/"
 #export RXVT_SOCKET="$XDG_CONFIG_HOME/urxvt/"
 export FZ_DATADIR="$XDG_CONFIG_HOME/filezilla/"

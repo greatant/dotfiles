@@ -44,11 +44,13 @@ Read $[FVWM_USERDIR]/othermenu
 ###########
 DestroyFunc StartFunction
 AddToFunc   StartFunction
-+ I Test (Init) Exec exec fvwm-root -r $fvwm_wall/calm.png
++ I Test (Init) Exec sh $HOME/bin/random-wallpaper.sh
++ I Test (Init) Exec exec fvwm-root -r ~/images/randomwallpaper.png
 + I Module FvwmButtons ButtTaskbar
 + I Module FvwmCommandS
 + I Module FvwmAnimate
 + I Module FvwmScript FvwmScript-MPD
++ I Module FvwmScript FvwmScript-MPDD
 
 
 #####
@@ -400,12 +402,12 @@ Piperead 'echo *ButtTaskbar: Columns $$(($[vp.width]))'
 *ButtTaskbar: Frame		0
 *ButtTaskbar:	(19x1, Icon icon-opera.svg:16x16, PressIcon icon-opera-pressed.svg:16x16, Padding 0 0, Action (Mouse 1) FuncButtOpera, Action (Mouse 3) Menu OperaWindowOps Rectangle +$left+$top 0 -100m)
 
-Piperead 'if [ $HOSTNAME = Willie ]; then echo *ButtTaskbar: \\(1654x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); else echo *ButtTaskbar: \\(1016x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); fi'
+Piperead 'if [ $HOSTNAME = Willie ]; then echo *ButtTaskbar: \\(1654x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); else echo *ButtTaskbar: \\(996x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); fi'
 
 #*ButtTaskbar:	(1018x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000-30000")
 #*ButtTaskbar:	(1656x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000-30000")
 *ButtTaskbar:	(10x1)
-*ButtTaskbar:	(40x1, Swallow "stalonetray" "Exec stalonetray -t -c $XDG_CONFIG_HOME/.stalonetrayrc")
+*ButtTaskbar:	(40x1, Swallow "stalonetray" "Exec stalonetray -t -c $XDG_CONFIG_HOME/stalonetrayrc")
 *ButtTaskbar:	(20x1, Center, Icon drive-removable-media-3.svg:16x16, Action (Mouse 1) "Menu FvwmMenuUdisks Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Playback" "Module FvwmScript FvwmScript-Playback")
 *ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Gmail" "Module FvwmScript FvwmScript-Gmail")
@@ -413,6 +415,7 @@ Piperead 'if [ $HOSTNAME = Willie ]; then echo *ButtTaskbar: \\(1654x1, Left, Sw
 #*ButtTaskbar:	(18x1, Center, Icon bluetooth_on.svg:20x20, Action (Mouse 1) "Menu FvwmMenuBluetooth Rectangle +$left+$top 0 -100m")
 #*ButtTaskbar:	(20x1, Center, Icon facebook.png, Action (Mouse 1) "Menu FBMenu Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(22x1, Center, Padding 0 3, Swallow "FvwmScript-Wifi" "Module FvwmScript FvwmScript-Wifi")
+*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Battery" "Module FvwmScript FvwmScript-Battery")
 *ButtTaskbar:	(105x1, Right, Swallow "FvwmScript-Clock" "FvwmScript FvwmScript-Clock -g -30000-30000", Action(Mouse 3) 'SendToModule FvwmScript-Clock SendString 1 1 bump')
 *ButtTaskbar:	(8x1, Action (Mouse 3) Menu MenuRoot, Action (Mouse 1) FuncShowDesktop)
 

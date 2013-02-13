@@ -16,13 +16,11 @@ ln -s $HOME/.dotfiles_sync/fvwm $XDG_CONFIG_HOME/fvwm
 ln -s $HOME/.dotfiles_sync/bashrun $XDG_CONFIG_HOME/bashrun
 ln -s $HOME/.dotfiles_sync/mplayer $XDG_CONFIG_HOME/mplayer
 ln -s $HOME/.dotfiles_sync/mpd.conf $XDG_CONFIG_HOME/mpd.conf
+ln -s $HOME/.dotfiles_sync/stalonetrayrc $XDG_CONFIG_HOME/stalonetrayrc
 
 ln -s $HOME/.dotfiles_sync/opera/urlfilter.ini $XDG_CONFIG_HOME/opera/urlfilter.ini
 ln -s $HOME/.dotfiles_sync/opera/speeddial.ini $XDG_CONFIG_HOME/opera/speeddial.ini
 ln -s $HOME/.dotfiles_sync/opera/fanboy-adblocklist-elements-v4.css $XDG_CONFIG_HOME/opera/fanboy-adblocklist-elements-v4.css
-
-
-
 
 
 

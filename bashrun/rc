@@ -100,7 +100,7 @@ TERMINAL_RULES=(
 #DIRHANDLER='kfmclient openProfile filemanagement'
 
 # BROWSER to use for google lookup (C-M-g)
-BROWSER=opera
+BROWSER=firefox
 
 # GOOGLE_FALLBACK (default: no) If set to "yes" bashrun will automatically
 # google the commandline if it isn't executable or handled by HANDLERS
