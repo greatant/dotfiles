@@ -415,7 +415,9 @@ Piperead 'if [ $HOSTNAME = Willie ]; then echo *ButtTaskbar: \\(1654x1, Left, Sw
 #*ButtTaskbar:	(18x1, Center, Icon bluetooth_on.svg:20x20, Action (Mouse 1) "Menu FvwmMenuBluetooth Rectangle +$left+$top 0 -100m")
 #*ButtTaskbar:	(20x1, Center, Icon facebook.png, Action (Mouse 1) "Menu FBMenu Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(22x1, Center, Padding 0 3, Swallow "FvwmScript-Wifi" "Module FvwmScript FvwmScript-Wifi")
-*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Battery" "Module FvwmScript FvwmScript-Battery")
+
+Piperead 'if [ $HOSTNAME = Hutz ]; then echo *ButtTaskbar: \\(20x1, Center, Padding 0 3, Swallow \\"FvwmScript-Battery\\" \\"Module FvwmScript FvwmScript-Battery\\"\\); fi'
+
 *ButtTaskbar:	(105x1, Right, Swallow "FvwmScript-Clock" "FvwmScript FvwmScript-Clock -g -30000-30000", Action(Mouse 3) 'SendToModule FvwmScript-Clock SendString 1 1 bump')
 *ButtTaskbar:	(8x1, Action (Mouse 3) Menu MenuRoot, Action (Mouse 1) FuncShowDesktop)
 
