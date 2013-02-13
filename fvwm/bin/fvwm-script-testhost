@@ -1,3 +1,0 @@
-#!/bin/sh
-
-if [ $HOSTNAME = Willie ]; then echo *ButtTaskbar: \(1656x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); else echo *ButtTaskbar: \(1018x1, Left, Swallow \"IconTaskbar\" \"FvwmIconMan IconTaskbar\"\); fi'
