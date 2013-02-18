@@ -44,13 +44,12 @@ Read $[FVWM_USERDIR]/othermenu
 ###########
 DestroyFunc StartFunction
 AddToFunc   StartFunction
-+ I Test (Init) Exec sh $HOME/bin/random-wallpaper.sh
+#+ I Test (Init) Exec sh $HOME/bin/random-wallpaper.sh
 + I Test (Init) Exec exec fvwm-root -r ~/images/randomwallpaper.png
 + I Module FvwmButtons ButtTaskbar
 + I Module FvwmCommandS
 + I Module FvwmAnimate
 + I Module FvwmScript FvwmScript-MPD
-+ I Module FvwmScript FvwmScript-MPDD
 
 
 #####
@@ -316,11 +315,12 @@ Style * ClickToFocus, ClickToFocusRaises, !Icon, ParentalRelativity,		\
 
 
 Style opera		MiniIcon icon-opera.svg:16x16, EWMHMiniIconOverride
-Style Qtfm		MiniIcon icon-filemanager.svg:16x16
+Style Sunflower		MiniIcon icon-filemanager.svg:16x16, EWMHMiniIconOverride
 Style Xpdf		MiniIcon application-x-pdf.png
-Style XCalc		MiniIcon accessories-calculator.png
-Style NEdit		MiniIcon accessories-text-editor.png, ResizeHintOverride
+Style XCalc		MiniIcon icon-calculator.svg:16x16
+Style galculator	MiniIcon icon-calculator.svg:16x16
 Style urxvt		MiniIcon icon-terminal.svg:16x16
+Style xterm		MiniIcon icon-terminal.svg:16x16
 #Style jd-Main		MiniIcon jdownloader.png
 #Style ssnes		MiniIcon snes.png
 
@@ -336,7 +336,7 @@ Style gsimplecal	!Title, WindowListSkip, !Maximizable, !Iconifiable
 
 Style bashrun2-run-dialog	!Title, WindowListSkip
 
-Style MPlayer	MiniIcon video-x-generic.png, !Title, StaysOnTop
+Style MPlayer	MiniIcon icon-video.svg:16x16, !Title, StaysOnTop
 Mouse (MPlayer) 1 W N FuncWindow Move
 Mouse (MPlayer) 3 W N FuncWindow Resize
 
@@ -400,26 +400,25 @@ Piperead 'echo *ButtTaskbar: Geometry $[vp.width]x22+0-0'
 Piperead 'echo *ButtTaskbar: Columns $$(($[vp.width]))'
 *ButtTaskbar: Padding		0 0
 *ButtTaskbar: Frame		0
+
 *ButtTaskbar:	(19x1, Icon icon-opera.svg:16x16, PressIcon icon-opera-pressed.svg:16x16, Padding 0 0, Action (Mouse 1) FuncButtOpera, Action (Mouse 3) Menu OperaWindowOps Rectangle +$left+$top 0 -100m)
 
-Piperead 'if [ $HOSTNAME = Willie ]; then echo *ButtTaskbar: \\(1654x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); else echo *ButtTaskbar: \\(996x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); fi'
+Piperead 'if [ $HOSTNAME = Hutz ]; then echo *ButtTaskbar: \\(996x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); else echo *ButtTaskbar: \\(1654x1, Left, Swallow \\"IconTaskbar\\" \\"FvwmIconMan IconTaskbar\\"\\); fi'
 
-#*ButtTaskbar:	(1018x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000-30000")
-#*ButtTaskbar:	(1656x1, Left, Swallow "IconTaskbar" "FvwmIconMan IconTaskbar -g -30000-30000")
 *ButtTaskbar:	(10x1)
+
 *ButtTaskbar:	(40x1, Swallow "stalonetray" "Exec stalonetray -t -c $XDG_CONFIG_HOME/stalonetrayrc")
-*ButtTaskbar:	(20x1, Center, Icon drive-removable-media-3.svg:16x16, Action (Mouse 1) "Menu FvwmMenuUdisks Rectangle +$left+$top 0 -100m")
+
+*ButtTaskbar:	(20x1, Center, Icon panel-removable-media.svg:16x16, Action (Mouse 1) "Menu FvwmMenuUdisks Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Playback" "Module FvwmScript FvwmScript-Playback", Action(Mouse 1) 'SendToModule FvwmScript-Playback SendString 1 1 PauseBump', Action(Mouse 3) 'SendToModule FvwmScript-Playback SendString 1 1 MenuBump')
-*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Gmail" "Module FvwmScript FvwmScript-Gmail")
-Action (Mouse 4) 'SendToModule volume SendString 1 1 bump', Action (Mouse 5) 'SendToModule volume SendString 1 2 bump'
+*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Gmail" "Module FvwmScript FvwmScript-Gmail") Action (Mouse 4) 'SendToModule volume SendString 1 1 bump', Action (Mouse 5) 'SendToModule volume SendString 1 2 bump'
 #*ButtTaskbar:	(18x1, Center, Icon bluetooth_on.svg:20x20, Action (Mouse 1) "Menu FvwmMenuBluetooth Rectangle +$left+$top 0 -100m")
-#*ButtTaskbar:	(20x1, Center, Icon facebook.png, Action (Mouse 1) "Menu FBMenu Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(22x1, Center, Padding 0 3, Swallow "FvwmScript-Wifi" "Module FvwmScript FvwmScript-Wifi")
 
 Piperead 'if [ $HOSTNAME = Hutz ]; then echo *ButtTaskbar: \\(20x1, Center, Padding 0 3, Swallow \\"FvwmScript-Battery\\" \\"Module FvwmScript FvwmScript-Battery\\"\\); fi'
 
 *ButtTaskbar:	(105x1, Right, Swallow "FvwmScript-Clock" "FvwmScript FvwmScript-Clock -g -30000-30000", Action(Mouse 3) 'SendToModule FvwmScript-Clock SendString 1 1 bump')
-*ButtTaskbar:	(8x1, Action (Mouse 3) Menu MenuRoot, Action (Mouse 1) FuncShowDesktop)
+*ButtTaskbar:	(10x1, Action (Mouse 3) Menu MenuRoot, Action (Mouse 1) FuncShowDesktop)
 
 DestroyFunc BumpUp
 AddToFunc BumpUp
@@ -717,9 +716,9 @@ Mouse 3 R C Module FvwmPager -transient
 ###########
 DestroyMenu MenuRoot
 AddToMenu MenuRoot "Root Menu" Title
-+ "File Manager%icon-filemanager.svg:32x32%"	Exec exec qtfm
++ "File Manager%icon-filemanager.svg:32x32%"	Exec exec sunflower
 + "Email%mail-new.svg:32x32%"			Exec exec geary
-+ "Terminal%icon-terminal.svg:32x32%"		Exec exec urxvtq
++ "Terminal%icon-terminal.svg:32x32%"		Exec exec urxvt
 + "" Nop
 + "Apps"					Popup MenuAppsGeneral
 + "System"					Popup MenuSystemNew

@@ -6,6 +6,10 @@
 ################
 
 
+#rm $HOME/.bashrc
+#rm $HOME/.bash_profile
+#rm $HOME/.bash_logout
+
 ln -s $HOME/.dotfiles_sync/.bashrc $HOME/.bashrc
 ln -s $HOME/.dotfiles_sync/.bash_logout $HOME/.bash_logout
 ln -s $HOME/.dotfiles_sync/.bash_profile $HOME/.bash_profile

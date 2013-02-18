@@ -5,31 +5,31 @@ URxvt.scrollBar: false
 URxvt.font: -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso8859-9
 
 
-! swayr color scheme
+! Colors
+*background:                    #262626
+*foreground:                    #c2c2b0
 
-*background: #1c1709
-*foreground: #c2b9a1
-
-*color0:     #1c1709
-*color8:     #4f4939
-
-*color1:     #8e4317
-*color9:     #f07935
-
-*color2:     #787200
-*color10:    #d9d138
-
-*color3:     #945c00
-*color11:    #ffab26
-
-*color4:     #315094
-*color12:    #8aa9ed
-
-*color5:     #5c2e40
-*color13:    #ff8cb8
-
-*color6:     #00617d
-*color14:    #43bfe0
-
-*color7:     #c2b9a1
-*color15:    #f2e8c9
+! Black + DarkGrey
+*color0:                        #262626
+*color8:                        #73675b
+! DarkRed + Red
+*color1:                        #a64211
+*color9:                        #cc5214
+! DarkGreen + Green
+*color2:                        #638046
+*color10:                       #80a65b
+! DarkYellow + Yellow
+*color3:                        #bf8c25
+*color11:                       #e6a82d
+! DarkBlue + Blue
+*color4:                        #4d6d99
+*color12:                       #6088bf
+! DarkMangenta + Mangenta
+*color5:                        #996b89
+*color13:                       #bf86ac
+! DarkCyan + Cyan
+*color6:                        #6b8e99
+*color14:                       #86b1bf
+! LightGrey + White
+*color7:                        #998a7a
+*color15:                       #c2c2b0
