@@ -44,8 +44,8 @@ Read $[FVWM_USERDIR]/othermenu
 ###########
 DestroyFunc StartFunction
 AddToFunc   StartFunction
-#+ I Test (Init) Exec sh $HOME/bin/random-wallpaper.sh
-+ I Test (Init) Exec exec fvwm-root -r ~/images/randomwallpaper.png
++ I Test (Init) Exec sh $HOME/bin/random-wallpaper.sh
++ I Test (Init) Exec exec fvwm-root -r $fvwm_wall/.random.png
 + I Module FvwmButtons ButtTaskbar
 + I Module FvwmCommandS
 + I Module FvwmAnimate
