@@ -14,7 +14,7 @@ fi
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
-sh $HOME/bin/random-wallpaper.sh
+sh $HOME/bin/random-wallpaper.sh &
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
