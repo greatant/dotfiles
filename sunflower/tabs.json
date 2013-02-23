@@ -1,0 +1,24 @@
+{
+    "left": {
+        "active_tab": 0, 
+        "tabs": [
+            {
+                "class": "FileList", 
+                "path": "/home/blake/video/tv/JAG", 
+                "sort_ascending": true, 
+                "sort_column": 0
+            }
+        ]
+    }, 
+    "right": {
+        "active_tab": 0, 
+        "tabs": [
+            {
+                "class": "FileList", 
+                "path": "/mnt/external", 
+                "sort_ascending": true, 
+                "sort_column": 0
+            }
+        ]
+    }
+}

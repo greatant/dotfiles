@@ -26,7 +26,7 @@
 
 SetEnv fvwm_script	$[FVWM_USERDIR]/bin
 SetEnv fvwm_icon	$[FVWM_USERDIR]/images
-SetEnv fvwm_wall	$[HOME]/images/wallpaper
+SetEnv fvwm_wall	$[HOME]/pictures/wallpaper
 SetEnv fvwm_editor	/usr/bin/medit
 SetEnv fvwm_music_path	$[HOME]/music
 #SetEnv fvwm_music_exec
@@ -45,7 +45,7 @@ Read $[FVWM_USERDIR]/othermenu
 DestroyFunc StartFunction
 AddToFunc   StartFunction
 + I Test (Init) Exec sh $HOME/bin/random-wallpaper.sh
-+ I Test (Init) Exec exec fvwm-root -r $fvwm_wall/.random.png
+#+ I Test (Init) Exec exec fvwm-root -r $fvwm_wall/.random.png
 + I Module FvwmButtons ButtTaskbar
 + I Module FvwmCommandS
 + I Module FvwmAnimate
@@ -716,23 +716,30 @@ Mouse 3 R C Module FvwmPager -transient
 ###########
 DestroyMenu MenuRoot
 AddToMenu MenuRoot "Root Menu" Title
-+ "File Manager%icon-filemanager.svg:32x32%"	Exec exec sunflower
-+ "Email%mail-new.svg:32x32%"			Exec exec geary
-+ "Terminal%icon-terminal.svg:32x32%"		Exec exec urxvt
++ "File Manager%icon-filemanager.svg:26x26%"	Exec exec sunflower
++ "Email%icon-mail.svg:26x26%"			Exec exec geary
++ "Terminal%icon-terminal.svg:26x26%"		Exec exec urxvt
++ "Devices%icon-removable-media.svg:26x26%"	Popup FvwmMenuUdisks
 + "" Nop
-+ "Apps"					Popup MenuAppsGeneral
-+ "System"					Popup MenuSystemNew
++ "Internet%icon-internet.svg:18x18%"		Popup MenuInternet
++ "Office%icon-office.svg:18x18%"		Popup MenuOffice
++ "Utilities%icon-utilities.svg:18x18%"		Popup MenuUtilities
++ "System%icon-system.svg:18x18%"		Popup MenuSystem
 + "" Nop
-+ "Shutdown"					Exec exec gshutdown
++ "Shutdown%icon-shutdown.svg:18x18%"		Exec exec gshutdown
 
 
-DestroyMenu MenuSystemNew
-AddToMenu MenuSystemNew
-+ "Man pages"	Exec Nop
+DestroyMenu MenuSystem
+AddToMenu MenuSystem
++ "Cron jobs"		Exec gnome-schedule
++ "Font Manager"	Exec Nop
++ "" Nop
++ "R-and-R"		Popup FvwmMenuRandR
 + "" Nop
 + "Update System"	Popup MenuSystemUpdate
-+ "" Nop
 + "Upload dotfiles"	Exec Nop
++ "Browse Wallpaper" Popup $[fvwm_wall]
++ "Restart FVWM" Restart
 
 DestroyMenu MenuAppsGeneral
 AddToMenu MenuAppsGeneral
@@ -749,10 +756,12 @@ DestroyMenu MenuInternet
 AddToMenu MenuInternet
 + "Browse"	Exec exec opera
 + "Email"	Exec exec geary
-+ "FTP"		Exec exec filezilla
-+ "BitTorrent"	Exec exec deluge
 + "Skype"	Exec exec skype --dbpath=$XDG_CONFIG_HOME/skype
 + "IRC"		Exec exec xchat --cfgdir=$XDG_CONFIG_HOME/xchat2
++ "" Nop
++ "BitTorrent"	Exec exec transmission-gtk
++ "FTP"		Exec exec filezilla
++ "JDownloader"	Exec exec jdownloader
 
 DestroyMenu MenuOffice
 AddToMenu MenuOffice
@@ -761,9 +770,12 @@ AddToMenu MenuOffice
 + "Impress"	Exec exec loimpress
 + "" Nop
 + "muPDF"	Exec exec mupdf
-+ "Xcalc"	Exec exec xcalc
-+ "mEdit"	Exec exec medit
-+ "meld"	Exec exec meld
++ "Mousepad"	Exec exec mousepad
++ "Meld"	Exec exec meld
++ "" Nop
++ "Inkscape"	Exec exec inkscape
++ "Gimp"	Exec exec gimp
+
 
 DestroyMenu MenuMultimedia
 AddToMenu MenuMultimedia
@@ -786,8 +798,8 @@ AddToMenu MenuGames
 + "Nintendo 64"		Popup $[FVWM_USERDIR]/games/n64
 + "Sony Playstation"	Popup $[FVWM_USERDIR]/games/psx
 
-DestroyMenu MenuSystem
-AddToMenu MenuSystem
+DestroyMenu MenuSystemOld
+AddToMenu MenuSystemOld
 + MissingSubmenuFunction WallpaperBrowser
 + "Netcfg"	Popup FvwmMenuNetcfg
 + "RandR"	Popup FvwmMenuRandR
@@ -801,6 +813,7 @@ AddToMenu MenuSystem
 + "Manual Pages" Exec export MANPATH=/usr/share/man && xman -notopbox
 + "" Nop
 + "Browse Wallpaper" Popup $[fvwm_wall]
++ "Restart FVWM" Restart
 
 MenuStyle * 	PopupDelay 500, PopdownImmediately, HoldSubmenus,	\
 		PopupOffset -5 100, Hilight3DThin, SeparatorsShort,		\

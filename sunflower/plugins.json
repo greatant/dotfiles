@@ -1,0 +1,16 @@
+{
+    "FileList": {
+        "columns": [
+            "name", 
+            "extension", 
+            "size", 
+            "mode", 
+            "date"
+        ], 
+        "size_date": 209, 
+        "size_extension": 74, 
+        "size_mode": 50, 
+        "size_name": 191, 
+        "size_size": 70
+    }
+}

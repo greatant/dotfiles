@@ -17,10 +17,13 @@ ln -s $HOME/.dotfiles_sync/.xinitrc $HOME/.xinitrc
 ln -s $HOME/.dotfiles_sync/.Xresources $HOME/.Xresources
 
 ln -s $HOME/.dotfiles_sync/fvwm $XDG_CONFIG_HOME/fvwm
+ln -s $HOME/.dotfiles_sync/user-dirs.dirs $XDG_CONFIG_HOME/user-dirs.dirs
 ln -s $HOME/.dotfiles_sync/bashrun $XDG_CONFIG_HOME/bashrun
 ln -s $HOME/.dotfiles_sync/mplayer $XDG_CONFIG_HOME/mplayer
 ln -s $HOME/.dotfiles_sync/mpd.conf $XDG_CONFIG_HOME/mpd.conf
 ln -s $HOME/.dotfiles_sync/stalonetrayrc $XDG_CONFIG_HOME/stalonetrayrc
+ln -s $HOME/.dotfiles_sync/sunflower $XDG_CONFIG_HOME/sunflower
+ln -s $HOME/.dotfiles_sync/transmission/settings.json $XDG_CONFIG_HOME/transmission/settings.json
 
 ln -s $HOME/.dotfiles_sync/opera/urlfilter.ini $XDG_CONFIG_HOME/opera/urlfilter.ini
 ln -s $HOME/.dotfiles_sync/opera/speeddial.ini $XDG_CONFIG_HOME/opera/speeddial.ini
