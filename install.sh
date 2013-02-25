@@ -22,8 +22,15 @@ ln -s $HOME/.dotfiles_sync/bashrun $XDG_CONFIG_HOME/bashrun
 ln -s $HOME/.dotfiles_sync/mplayer $XDG_CONFIG_HOME/mplayer
 ln -s $HOME/.dotfiles_sync/mpd.conf $XDG_CONFIG_HOME/mpd.conf
 ln -s $HOME/.dotfiles_sync/stalonetrayrc $XDG_CONFIG_HOME/stalonetrayrc
-ln -s $HOME/.dotfiles_sync/sunflower $XDG_CONFIG_HOME/sunflower
 ln -s $HOME/.dotfiles_sync/transmission/settings.json $XDG_CONFIG_HOME/transmission/settings.json
+
+ln -s $HOME/.dotfiles_sync/sunflower/accelerators.json $XDG_CONFIG_HOME/sunflower/accelerators.json
+ln -s $HOME/.dotfiles_sync/sunflower/associations.json $XDG_CONFIG_HOME/sunflower/associations.jsno
+ln -s $HOME/.dotfiles_sync/sunflower/bookmarks.json $XDG_CONFIG_HOME/sunflower/bookmarks.json
+ln -s $HOME/.dotfiles_sync/sunflower/commands.json $XDG_CONFIG_HOME/sunflower/commands.json
+ln -s $HOME/.dotfiles_sync/sunflower/mounts.json $XDG_CONFIG_HOME/sunflower/mounts.json
+ln -s $HOME/.dotfiles_sync/sunflower/plugins.json $XDG_CONFIG_HOME/sunflower/plugins.json
+ln -s $HOME/.dotfiles_sync/sunflower/toolbar.json $XDG_CONFIG_HOME/sunflower/toolbar.json
 
 ln -s $HOME/.dotfiles_sync/opera/urlfilter.ini $XDG_CONFIG_HOME/opera/urlfilter.ini
 ln -s $HOME/.dotfiles_sync/opera/speeddial.ini $XDG_CONFIG_HOME/opera/speeddial.ini
