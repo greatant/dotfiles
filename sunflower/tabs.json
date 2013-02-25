@@ -4,7 +4,7 @@
         "tabs": [
             {
                 "class": "FileList", 
-                "path": "/home/blake/video/tv/JAG", 
+                "path": "/home/blake/downloads", 
                 "sort_ascending": true, 
                 "sort_column": 0
             }
@@ -15,7 +15,7 @@
         "tabs": [
             {
                 "class": "FileList", 
-                "path": "/mnt/external", 
+                "path": "/home/blake/.vm", 
                 "sort_ascending": true, 
                 "sort_column": 0
             }
