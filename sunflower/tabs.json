@@ -15,7 +15,7 @@
         "tabs": [
             {
                 "class": "FileList", 
-                "path": "/home/blake/.vm", 
+                "path": "/home/blake/.config/sunflower", 
                 "sort_ascending": true, 
                 "sort_column": 0
             }
