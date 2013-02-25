@@ -19,7 +19,7 @@ xset fp rehash
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 
-if [ $HOSTNAME=="Willie" ]; then
+if [ $HOSTNAME = "Willie" ]; then
     exec xmodmap -e "pointer = 3 2 1" &
     numlockx &
 fi
