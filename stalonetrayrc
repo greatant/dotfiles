@@ -41,10 +41,10 @@ geometry 2x1+0+0
 							 # grow_gravity; if horizontal or vertical
 							 # direction is not specified, tray will not grow in
 							 # that direction
-grow_gravity W
+#grow_gravity W
 
 # icon_gravity <gravity>     # icon placement gravity, one of NW, NE, SW, SE
-icon_gravity NE
+icon_gravity NW
 
 # icon_size <int>            # specifies dimensions of typical icon slot
 icon_size 16
@@ -111,7 +111,7 @@ tint_level 0
 
 # transparent [<bool>]       # whether to use root-transparency (background
                              # image must be set with Esetroot or compatible utility)
-transparent false
+#transparent false
 
 # vertical [<bool>]          # whether to use vertical layout (horisontal layout
                              # is used by default)

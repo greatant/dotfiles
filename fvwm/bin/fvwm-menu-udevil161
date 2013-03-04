@@ -2,9 +2,9 @@
 
 #=============================================================================#
 #          FILE: obdevicemenu                                                 #
-#       VERSION: 1.7.0                                                        #
+#       VERSION: 1.6.1                                                        #
 #                                                                             #
-#   DESCRIPTION: obdevicemenu is an Openbox pipe menu that uses udisks to     #
+#   DESCRIPTION: obdevicemenu is an Openbox pipe menu that uses udevil to     #
 #                easily mount, unmount or eject removable devices. An         #
 #                extensive configuration file allows desktop notifications    #
 #                about the success or failure of operations, as well as the   #
@@ -36,11 +36,11 @@
 
 unset GREP_OPTIONS
 
-declare filemanager="/usr/bin/Thunar"
+declare filemanager="/usr/bin/sunflower"
 declare notify="/usr/bin/notify-send"
 declare notify_options="--expire-time=3000"
 declare optical_devices="-E ^/dev/sr[0-9]+"
-declare removable_devices="-E ^/dev/sd[b-z][0-9]*|^/dev/mmcblk[0-9]+p*[0-9]*"
+declare removable_devices="-E ^/dev/sd[c-z][0-9]*|^/dev/mmcblk[0-9]+p*[0-9]*"
 declare mount_options="--mount-options nosuid,noexec,noatime"
 
 declare -i show_internal=0
@@ -50,8 +50,6 @@ declare -i show_removable_device_filename=1
 declare -i fancy_sort=0
 declare -i run_post_mount=0
 declare -i run_post_unmount=0
-
-declare -a blacklist=( )
 
 declare CONFIGFILE
 
@@ -68,17 +66,17 @@ fi
 if [[ -f "${CONFIGFILE}" ]]; then
 	. "${CONFIGFILE}"
 	if (( $? != 0 )); then
-		printf '%s\n' "DestroyMenu recreate FvwmMenuUdisks"
-		printf '%s\n' "AddToMenu FvwmMenuUdisks fvwm-menu-udisks Title"
+		printf '%s\n' "DestroyMenu recreate FvwmMenuUdevil"
+		printf '%s\n' "AddToMenu FvwmMenuUdevil fvwm-menu-udevil Title"
 		printf '%s\n' "+ \"Failed to source configuration file\""
 		exit 1
 	fi
 fi
 
-if ! command -v udisks >/dev/null 2>&1; then
-	printf '%s\n' "DestroyMenu recreate FvwmMenuUdisks"
-	printf '%s\n' "AddToMenu FvwmMenuUdisks fvwm-menu-udisks Title"
-	printf '%s\n' "+ \"Udisks not installed\""
+if ! command -v udevil >/dev/null 2>&1; then
+	printf '%s\n' "DestroyMenu recreate FvwmMenuUdevil"
+	printf '%s\n' "AddToMenu FvwmMenuUdevil fvwm-menu-udevil Title"
+	printf '%s\n' "+ \"Udevil not installed\""
 	exit 1
 fi
 # }}}
@@ -97,63 +95,66 @@ notify() {
 }
 
 # Functions to retrieve information. These functions simply parse the output
-# of udisks --show-info.
+# of udevil --show-info.
 info_blank() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*blank:" \
 		| awk '{print $2}'
 }
 info_ejectable() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*ejectable:" \
 		| awk '{print $2}'
 }
 info_has_media() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*has media:" \
 		| awk '{print $3}'
 }
 info_internal() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*system internal:" \
 		| awk '{print $3}'
 }
 info_label() {
 	local info_label=
-	info_label="$(udisks --show-info ${1} \
+	info_label="$(udevil --show-info ${1} \
 		| grep -m 1 -w "^  label:" \
-		| awk '{gsub(/_/,"");$1="";print substr($0, index($0,$2))}')"
-	[[ -n "${info_label}" ]] && printf '%s\n' "${info_label}"
+		| sed 's: *label\: *::')"
+#		| awk '{$1="";gsub(/_/,"");print substr($0, index($0,$2))}')"
+	if [[ -n "${info_label}" ]]; then
+		printf '%s\n' "${info_label}"; return
+	fi
 }
 info_media() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 	| grep -m 1 -w "^[[:space:]]*media:" \
 	| awk '{gsub(/_/,"");print $2}'
 }
 info_model() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*model:" \
-		| awk '{gsub(/_/,"");$1="";print substr($0, index($0,$2))}'
+		| awk '{$1="";gsub(/_/,"");print substr($0, index($0,$2))}'
 }
 info_mounted() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*is mounted:" \
 		| awk '{print $3}'
 }
 info_mountpath() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*mount paths:" \
 		| awk '{$1="";$2="";print substr($0, index($0,$3))}'
 }
 info_type() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*type:" \
 		| awk '{gsub(/_/,"");print $2}'
 }
 info_vendor() {
-	udisks --show-info ${1} \
+	udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*vendor:" \
-		| awk '{gsub(/_/,"");$1="";print substr($0, index($0,$2))}'
+		| awk '{$1="";gsub(/_/,"");print substr($0, index($0,$2))}'
 }
 # The size of the device/partition is given in bytes, so let's convert that
 # to something more readable. Rounding done in bash is not accurate at all
@@ -179,7 +180,7 @@ convert_size() {
 }
 info_device_size() {
 	local info_device_size=
-	info_device_size="$(udisks --show-info ${1} \
+	info_device_size="$(udevil --show-info ${1} \
 		| grep -m 1 -w "^[[:space:]]*size:" \
 		| awk '{print $2}')"
 	if [[ -n "${info_device_size}" ]]; then
@@ -189,7 +190,7 @@ info_device_size() {
 }
 info_partition_size() {
 	local info_partition_size=
-	info_partition_size="$(udisks --show-info ${1} \
+	info_partition_size="$(udevil --show-info ${1} \
 		| grep -m 1 -w "  size:" \
 		| awk '{print $2}')"
 	if [[ -n "${info_partition_size}" ]]; then
@@ -198,7 +199,7 @@ info_partition_size() {
 	fi
 }
 
-# Functions to perform udisks commands.
+# Functions to perform udevil commands.
 
 # Eject the device, unmounting with a call to action_unmount if required.
 action_eject() {
@@ -213,10 +214,10 @@ action_eject() {
 		if (( show_notifications == 1 )); then
 			if command -v "${notify}" >/dev/null 2>&1; then
 				notify "$(printf '%s\n' "Ejecting ${devname} ...")"
-				notify "$(udisks --eject ${devname})"
+				notify "$(udevil --eject ${devname})"
 			fi
 		else
-			udisks --eject ${devname}
+			udevil --eject ${devname}
 		fi
 	fi
 }
@@ -227,10 +228,10 @@ action_mount() {
 	if (( show_notifications == 1 )); then
 		if command -v "${notify}" >/dev/null 2>&1; then
 			notify "$(printf '%s\n' "Mounting ${devname} ...")"
-			notify "$(udisks --mount ${devname} ${mount_options})"
+			notify "$(udevil --mount ${devname} ${mount_options})"
 		fi
 	else
-		udisks --mount ${devname} ${mount_options}
+		udevil --mount ${devname} ${mount_options}
 	fi
 
 	if (( run_post_mount == 1 )); then
@@ -255,14 +256,14 @@ action_unmount() {
 	if (( show_notifications == 1 )); then
 		if command -v "${notify}" >/dev/null 2>&1; then
 			notify "$(printf '%s\n' "Unmounting ${devname} ...")"
-			notify "$(udisks --unmount ${devname})"
+			notify "$(udevil --unmount ${devname})"
 		fi
 		mounted="$(info_mounted ${devname})"
 		if (( mounted == 1 )); then
 			notify "$(printf '%s\n' "${devname} unmounted successfully")"
 		fi
 	else
-		udisks --unmount ${devname}
+		udevil --unmount ${devname}
 	fi
 
 	if (( run_post_unmount == 1 )); then
@@ -278,11 +279,11 @@ action_info() {
 	local devname="${1}"
 	local devmajor="${devname%%[0-9]*}"
 
-	udisks --show-info ${devname} >/dev/null 2>&1
+	udevil --show-info ${devname} >/dev/null 2>&1
 	if (( $? != 0 )); then
-		printf '%s\n' "DestroyMenu FvwmMenuUdisksInfo"
-		printf '%s\n' "AddToMenu FvwmMenuUdisksInfo fvwm-menu-udisks Title"
-		printf '%s\n' "+ \"Udisks failed.\""
+		printf '%s\n' "DestroyMenu FvwmMenuUdevilInfo"
+		printf '%s\n' "AddToMenu FvwmMenuUdevilInfo fvwm-menu-udevil Title"
+		printf '%s\n' "+ \"Udevil failed.\""
 		exit 0
 	fi
 
@@ -297,9 +298,9 @@ action_info() {
 		local info_partition_size="$(info_partition_size "${devname}")"
 	fi
 
-	printf '%s\n' "DestroyMenu FvwmMenuUdisksInfo"
+	printf '%s\n' "DestroyMenu FvwmMenuUdevilInfo"
 
-	printf '%s\n' "AddToMenu FvwmMenuUdisksInfo \"Device information\" Title"
+	printf '%s\n' "AddToMenu FvwmMenuUdevilInfo \"Device information\" Title"
 
 	[[ -n "${info_device_filename}" ]] && \
 		printf '%s\n' "+ \"device: ${devname}\""
@@ -391,13 +392,13 @@ device_menu() {
 	local -a mounted_optical=( )
 	local -i total_removable=0
 
-	printf '%s\n' "DestroyMenu recreate FvwmMenuUdisks"
-	printf '%s\n' "AddToMenu FvwmMenuUdisks MissingSubmenuFunction FuncFvwmMenuUdisks"
+	printf '%s\n' "DestroyMenu recreate FvwmMenuUdevil"
+	printf '%s\n' "AddToMenu FvwmMenuUdevil MissingSubmenuFunction FuncFvwmMenuUdevil"
 
-	udisks --enumerate-device-files >/dev/null 2>&1
+	udevil --enumerate-device-files >/dev/null 2>&1
 	if [[ $? -ne 0 ]]; then
-		printf '%s\n' "+ fvwm-menu-udisks Title"
-		printf '%s\n' "+ \"Udisks failed.\""
+		printf '%s\n' "+ fvwm-menu-udevil Title"
+		printf '%s\n' "+ \"Udevil failed.\""
 		exit 0
 	fi
 
@@ -406,7 +407,7 @@ device_menu() {
 
 	printf '%s\n' "+ \"Removable media\" Title"
 
-	removable=( $(udisks --enumerate-device-files \
+	removable=( $(udevil --enumerate-device-files \
 		| grep -ow ${removable_devices} | sort) )
 
 	if (( fancy_sort == 1 )); then
@@ -425,7 +426,7 @@ device_menu() {
 		if [[ "${devname}" =~ ^/dev/mmcblk[0-9]+p*[0-9]* ]]; then
 			devmajor="${devname%%p[0-9]*}"
 			if [[ "${devname}" = "${devmajor}" ]]; then
-				partitions="$(udisks --enumerate-device-files \
+				partitions="$(udevil --enumerate-device-files \
 					| grep -ow -E ^${devname}p[0-9]+ -c)"
 				if (( partitions > 0 )); then
 					continue
@@ -434,7 +435,7 @@ device_menu() {
 		else
 			devmajor="${devname%%[0-9]*}"
 			if [[ "${devname}" = "${devmajor}" ]]; then
-				partitions="$(udisks --enumerate-device-files \
+				partitions="$(udevil --enumerate-device-files \
 					| grep -ow -E ^${devname}[0-9]+ -c)"
 				if (( partitions > 0 )); then
 					continue
@@ -449,12 +450,6 @@ device_menu() {
 		fi
 
 		if (( info_internal == 0 )) || (( show_internal == 1 )); then
-
-			# Hide blacklisted devices.
-			for string in ${blacklist[@]}; do
-				udisks --show-info "${devname}" | grep -E "${string}" >/dev/null 2>&1
-				(( $? == 0 )) && continue 2
-			done
 		
 			total_removable=$((++total_removable))
 			
@@ -519,8 +514,9 @@ device_menu() {
 
 	# Here we list devices matched by the "optical_devices" regex specified in
 	# the configuration file.
+	printf '%s\n' "+ \"Optical media\" Title"
 
-	optical=( $(udisks --enumerate-device-files \
+	optical=( $(udevil --enumerate-device-files \
 		| grep -ow ${optical_devices} | sort) )
 
 	if (( ${#optical[*]} == 0 )); then
@@ -535,13 +531,6 @@ device_menu() {
 		local -i mounted=0
 
 		info_has_media="$(info_has_media "${devname}")"
-
-		# Hide blacklisted devices.
-		for string in ${blacklist[@]}; do
-			udisks --show-info "${devname}" | grep -E "${string}" >/dev/null 2>&1
-			(( $? == 0 )) && continue 2
-		done
-
 		if (( info_has_media == 0 )); then
 			printf '%s\n' "<item label=\"${devname#/dev/}: None\" />"
 		else
@@ -553,9 +542,6 @@ device_menu() {
 				[[ -z "${info_label}" ]] && info_label="$(info_model "${devname}")"
 				[[ -z "${info_label}" ]] && info_label="No label"
 			fi
-
-
-	printf '%s\n' "+ \"Optical media\" Title"
 
 			mounted="$(info_mounted "${devname}")"
 			if (( mounted == 0 )); then
@@ -612,7 +598,7 @@ mount_menu() {
 	local -i mounted=0
 
 	printf '%s\n' "DestroyMenu recreate ${devname}"
-	printf '%s\n' "AddToMenu ${devname} MissingSubmenuFunction FuncFvwmMenuUdisksInfo"
+	printf '%s\n' "AddToMenu ${devname} MissingSubmenuFunction FuncFvwmMenuUdevilInfo"
 	printf '%s\n' "+ DynamicPopdownAction DestroyMenu ${devname}"
 
 	printf '%s\n' "+ \"${devname}\" Title"
@@ -633,7 +619,7 @@ mount_menu() {
 		printf '%s\n' "+ \"Eject\" Exec $0 --eject-device ${devname}"
 	fi
 
-	printf '%s\n' "+ \"Info\" Popup FvwmMenuUdisksInfo"
+	printf '%s\n' "+ \"Info\" Popup FvwmMenuUdevilInfo"
 
 action_info ${devname}
 

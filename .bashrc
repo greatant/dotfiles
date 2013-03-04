@@ -19,11 +19,14 @@ export OPERA_PERSONALDIR="$XDG_CONFIG_HOME/opera/"
 export FZ_DATADIR="$XDG_CONFIG_HOME/filezilla/"
 export VBOX_USER_HOME="$XDG_CONFIG_HOME/VirtualBox/"
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer/"
-export ncmpcpp_directory="$XDG_CONFIG_HOME/ncmpcpp/"
-export FVWM_USERDIR="$XDG_CONFIG_HOME/fvwm"
+export FVWM_USERDIR="$XDG_CONFIG_HOME/fvwm/"
+export GST_PLUGIN_SYSTEM_PATH="$XDG_CONFIG_HOME/gstreamer-0.10/"
+export GIT_CONFIG="$XDG_CONFIG_HOME/gitconfig"
 
-alias startx='startx &> ~/.xlog'
-alias jdownloader='jdownloader -r $XDG_CONFIG_HOME/jdownloader/'
+#alias startx='startx &> ~/.xlog'
+#alias jdownloader='jdownloader -r $XDG_CONFIG_HOME/jdownloader/'
+alias skype='skype --dbpath=$XDG_CONFIG_HOME/skype/'
+alias mplayer='mplayer -use-filename-title'
 
 alias diff='colordiff'
 alias grep='grep --color=auto'

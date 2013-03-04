@@ -27,6 +27,10 @@
 SetEnv fvwm_script	$[FVWM_USERDIR]/bin
 SetEnv fvwm_icon	$[FVWM_USERDIR]/images
 SetEnv fvwm_wall	$[HOME]/pictures/wallpaper
+SetEnv fvwm_editor	/usr/bin/medit
+SetEnv fvwm_snes_path	~/games/snes
+SetEnv fvwm_snes_exec	/usr/bin/ssnes-zip
+SetEnv fvwm_tmp		$[FVWM_USERDIR]/tmp
 
 ImagePath $[fvwm_icon]:$[fvwm_wall]:$[fvwm_wall];.png:+
 *FvwmScript: Path $[FVWM_USERDIR]/fvwmscripts
@@ -39,7 +43,7 @@ Read $[FVWM_USERDIR]/othermenu
 ###########
 DestroyFunc StartFunction
 AddToFunc   StartFunction
-+ I Test (Init) Exec exec $HOME/bin/random-wallpaper.sh
++ I Test (Init) Exec sh $HOME/bin/random-wallpaper.sh
 #+ I Test (Init) Exec exec fvwm-root -r $fvwm_wall/.random.png
 + I Module FvwmButtons ButtTaskbar
 + I Module FvwmCommandS
@@ -319,7 +323,7 @@ OpaqueMoveSize -1
 # -6- Window Styles
 ###########
 
-Style * MiniIcon icon-unknown.svg:16x16
+Style * MiniIcon unknown.png
 
 Style * ClickToFocus, ClickToFocusRaises, !Icon, ParentalRelativity,		\
 	WindowShadeShrinks, WindowShadeSteps 200, WindowShadeLazy,		\
@@ -334,12 +338,11 @@ Style * ClickToFocus, ClickToFocusRaises, !Icon, ParentalRelativity,		\
 
 Style opera		MiniIcon icon-opera.svg:16x16, EWMHMiniIconOverride
 Style Sunflower		MiniIcon icon-filemanager.svg:16x16, EWMHMiniIconOverride
-Style mupdf		MiniIcon icon-pdf.svg:16x16
+Style Xpdf		MiniIcon application-x-pdf.png
 Style XCalc		MiniIcon icon-calculator.svg:16x16
 Style galculator	MiniIcon icon-calculator.svg:16x16
 Style urxvt		MiniIcon icon-terminal.svg:16x16
 Style xterm		MiniIcon icon-terminal.svg:16x16
-Style gnome-schedule.py	MiniIcon icon-clock.svg:16x16, EWMHMiniIconOverride
 #Style jd-Main		MiniIcon jdownloader.png
 #Style ssnes		MiniIcon snes.png
 
@@ -359,6 +362,9 @@ Style MPlayer	MiniIcon icon-video.svg:16x16, !Title, StaysOnTop
 Mouse (MPlayer) 1 W N FuncWindow Move
 Mouse (MPlayer) 3 W N FuncWindow Resize
 
+Mouse (opera) 1 6 A Iconify true
+
+Style hl.exe		!Title, !Borders
 
 
 #####
@@ -423,11 +429,11 @@ Piperead 'if [ $HOSTNAME = Hutz ]; then echo *ButtTaskbar: \\(996x1, Left, Swall
 
 *ButtTaskbar:	(10x1)
 
-*ButtTaskbar:	(40x1, Swallow "stalonetray" "Exec stalonetray -c $XDG_CONFIG_HOME/stalonetrayrc")
+*ButtTaskbar:	(40x1, Swallow "stalonetray" "Exec stalonetray -t -c $XDG_CONFIG_HOME/stalonetrayrc")
 
 *ButtTaskbar:	(20x1, Center, Icon panel-removable-media.svg:16x16, Action (Mouse 1) "Menu FvwmMenuUdisks Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Playback" "Module FvwmScript FvwmScript-Playback", Action(Mouse 1) 'SendToModule FvwmScript-Playback SendString 1 1 PauseBump', Action(Mouse 3) 'SendToModule FvwmScript-Playback SendString 1 1 MenuBump')
-*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Gmail" "Module FvwmScript FvwmScript-Gmail")
+*ButtTaskbar:	(20x1, Center, Padding 0 3, Swallow "FvwmScript-Gmail" "Module FvwmScript FvwmScript-Gmail") Action (Mouse 4) 'SendToModule volume SendString 1 1 bump', Action (Mouse 5) 'SendToModule volume SendString 1 2 bump'
 #*ButtTaskbar:	(18x1, Center, Icon bluetooth_on.svg:20x20, Action (Mouse 1) "Menu FvwmMenuBluetooth Rectangle +$left+$top 0 -100m")
 *ButtTaskbar:	(22x1, Center, Padding 0 3, Swallow "FvwmScript-Wifi" "Module FvwmScript FvwmScript-Wifi")
 
@@ -597,7 +603,7 @@ Key M	A	M	Module FvwmConsole
 Key KP_Subtract	A CS	Exec exec alock -auth pam -bg shade:shade=30
 
 
-Key T	A	M	Exec exec urxvtcd
+Key T	A	M	Exec exec urxvt
 Key T	A	MC	Exec exec urxvt
 Key R	A	M	Exec exec fvwm_script/urxvt-launcher.sh
 Key Space A	M	Exec exec bashrun
@@ -734,15 +740,16 @@ DestroyMenu MenuRoot
 AddToMenu MenuRoot "Root Menu" Title
 + "File Manager%icon-filemanager.svg:26x26%"	Exec exec sunflower
 + "Email%icon-mail.svg:26x26%"			Exec exec geary
-+ "Terminal%icon-terminal.svg:26x26%"		Exec exec urxvtcd
++ "Terminal%icon-terminal.svg:26x26%"		Exec exec urxvt
 + "Devices%icon-removable-media.svg:26x26%"	Popup FvwmMenuUdisks
 + "" Nop
-+ "Internet%icon-internet.svg:26x26%"		Popup MenuInternet
-+ "Office%icon-office.svg:26x26%"		Popup MenuOffice
-+ "Utilities%icon-utilities.svg:26x26%"		Popup MenuUtilities
-+ "System%icon-system.svg:26x26%"		Popup MenuSystem
++ "Internet%icon-internet.svg:18x18%"		Popup MenuInternet
++ "Office%icon-office.svg:18x18%"		Popup MenuOffice
++ "Utilities%icon-utilities.svg:18x18%"		Popup MenuUtilities
++ "System%icon-system.svg:18x18%"		Popup MenuSystem
 + "" Nop
-+ "Shutdown%icon-shutdown.svg:16x16%"		Exec exec gshutdown
++ "Shutdown%icon-shutdown.svg:18x18%"		Exec exec gshutdown
+
 
 DestroyMenu MenuSystem
 AddToMenu MenuSystem
@@ -754,6 +761,17 @@ AddToMenu MenuSystem
 + "Update System"	Popup MenuSystemUpdate
 + "Upload dotfiles"	Exec Nop
 + "Browse Wallpaper" Popup $[fvwm_wall]
++ "Restart FVWM" Restart
+
+DestroyMenu MenuAppsGeneral
+AddToMenu MenuAppsGeneral
++ "Internet"	Popup MenuInternet
++ "Office"	Popup MenuOffice
++ "Multimedia"	Popup MenuMultimedia
++ "Games"	Popup MenuGames
++ "Utilities"	Popup MenuTools
++ "System"	Popup MenuSystem
++ "Windows"	Popup WindowOps
 + "Restart FVWM" Restart
 
 DestroyMenu MenuInternet
@@ -772,28 +790,24 @@ AddToMenu MenuOffice
 + "Writer"	Exec exec lowriter
 + "Calc"	Exec exec localc
 + "Impress"	Exec exec loimpress
-+ ""		Nop
++ "" Nop
 + "muPDF"	Exec exec mupdf
 + "Mousepad"	Exec exec mousepad
 + "Meld"	Exec exec meld
-+ ""		Nop
++ "" Nop
 + "Inkscape"	Exec exec inkscape
 + "Gimp"	Exec exec gimp
 
-DestroyMenu MenuUtilities
-AddToMenu MenuUtilities
-+ "Virtual Keyboard"	Exec exec fvkbd-gtk
-+ "Colour Palette"	Exec exec pychrom
-+ ""			Nop
-+ "Record"		Popup MenuRecord
 
-DestroyMenu MenuRecord
-AddToMenu MenuRecord
-+ "Screenshot"		Exec exec record.sh -screenshot-root
-+ "Window screenshot"	Exec exec record.sh -screenshot-win
-+ "Screencast"		Exec exec record.sh -screencast
-+ "Record webcam"	Exec exec record.sh -webcam
-+ "Record microphone"	Exec exec record.sh -mic
+DestroyMenu MenuMultimedia
+AddToMenu MenuMultimedia
++ "MPlayer"	Exec exec mplayer
++ "ncMPCpp"	Exec exec ncmpcpp
++ "Gimp"	Exec exec gimp
++ "Colour Palette" Exec exec gcolor2
++ "" Nop
++ "Browse Music" Popup MusicMenu
++ "Browse TV Shows" Popup
 
 DestroyMenu MenuGames
 AddToMenu MenuGames

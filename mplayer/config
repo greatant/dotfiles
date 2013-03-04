@@ -68,7 +68,7 @@ vo=xv
 #monitoraspect=4:3
 
 # Use this for a widescreen monitor, non-square pixels.
-monitoraspect=16:10
+monitoraspect=16:9
 
 # Keep the player window on top of all other windows.
 #ontop=yes

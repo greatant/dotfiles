@@ -14,8 +14,6 @@ fi
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
-#sh $HOME/bin/random-wallpaper.sh &
-
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 
@@ -24,6 +22,7 @@ if [ $HOSTNAME = "Willie" ]; then
     numlockx &
 fi
 
+#ln -s '/mnt/tv/TV Shows' '$HOME/video/tv'
 
 systemd --user &
 
